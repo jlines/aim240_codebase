@@ -69,11 +69,8 @@ class AnswerTicket:
         )
         dspy.settings.configure(lm=llm, rm=retriever_model)
         self.ssnrag = RAG()
-        # third_compiled_rag.load("jlines_compiled_rag_test")
+        # self.ssnrag.load("jlines_compiled_rag_test")
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
-        print(args[0])
         prediction = self.ssnrag(args[0])
-        print("!!!!!!!!!!!!!!!!!!")
-        print(prediction)
         return prediction.answer
