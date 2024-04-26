@@ -1,4 +1,4 @@
-# Project Title
+# AIM240 Customer Support Agent - RAG System
 
 This project contains several components which are organized in different folders. Here's a brief description of each:
 
