@@ -3,8 +3,6 @@ import dspy
 import json
 import openai
 from dspy.retrieve.pinecone_rm import PineconeRM
-from dspy.teleprompt import BayesianSignatureOptimizer, MIPRO, BootstrapFewShot
-from dspy.evaluate.evaluate import Evaluate
 from runpod_lm import OllamaRunpod
 
 
@@ -41,12 +39,9 @@ class RAG(dspy.Module):
 
 
 class AnswerTicket:
-    def __init__(self):
-        credentials = {}
-        with open("credentials.json") as credentials_file:
-            credentials = json.loads(credentials_file.read())
+    def __init__(self, openai_key: str, runpod_key: str, pinecone_key: str) -> None:
 
-        openai.api_key = credentials["OPENAI_API_KEY"]
+        openai.api_key = openai_key
 
         llm = OllamaRunpod(
             model="custom",
@@ -56,20 +51,20 @@ class AnswerTicket:
             top_k=10,
             top_p=0.95,
             base_url="https://api.runpod.ai/v2/cgoxys1krx1ref/runsync",
-            runpod_token=credentials["RUNPOD_API_KEY"],
+            runpod_token=runpod_key,
             temperature=0.6,
         )
 
         retriever_model = PineconeRM(
             "support-agent-d61",
-            credentials["PINECONE_API_KEY"],
+            pinecone_key,
             "gcp-starter",
-            openai_api_key=credentials["OPENAI_API_KEY"],
+            openai_api_key=openai_key,
             k=1,
         )
         dspy.settings.configure(lm=llm, rm=retriever_model)
         self.ssnrag = RAG()
-        # self.ssnrag.load("jlines_compiled_rag_test")
+        # third_compiled_rag.load("jlines_compiled_rag_test")
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         prediction = self.ssnrag(args[0])

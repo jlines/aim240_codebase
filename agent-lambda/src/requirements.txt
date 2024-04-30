@@ -1,0 +1,5 @@
+boto3
+requests
+pinecone-client==2.2.4
+git+https://github.com/jlines/dspy.git
+
