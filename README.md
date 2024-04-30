@@ -28,7 +28,7 @@ Converts the model and fine tuned LoRa adapter to a GGML file for use with a LLM
 
 This folder is dedicated to the optimization of prompts for a language model. It contains scripts for generating, evaluating, and optimizing prompts.
 
-## rag-lambda
+## agent-lambda
 
 This folder contains the implementation of a RAG (Retrieval-Augmented Generation) model with a lambda architecture. This includes scripts for the retrieval system, and generation system.
 
