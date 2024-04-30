@@ -32,14 +32,17 @@ This folder is dedicated to the optimization of prompts for a language model. It
 
 This folder contains the implementation of a RAG (Retrieval-Augmented Generation) model with a lambda architecture. This includes scripts for the retrieval system, and generation system.
 
-[handle_ticket.py](rag-lambda/handle_ticket.py)
+[handle_ticket.py](agent-lambda/src/app.py)
 Reads the question from a ticket in Jira, passes that question into the RAG system, then replies to the ticket with the generated answer.
 
-[runpod_lm.py](rag-lambda/runpod_lm.py)
+[runpod_lm.py](agent-lambda/src/runpod_lm.py)
 Custom LLM module for DSPy which can interface with the custom API used to host the Ollama instance on the Runpod serverless platform.
 
-[ssnragtotal.py](rag-lambda/ssnragtotal.py)
+[ssnragtotal.py](agent-lambda/src/ssnragtotal.py)
 The definition class for the RAG system. This defines the components used to collect information and the techniques used to create embeddings to query the vector db as well as generating the optimal propmt. This file has a lot of potential for improvement of the system.
+
+[Dockerfile](agent-lambda/src/Dockerfile)
+Since the DSPy library is larger than the 250mb limit of standard lambda functions, I must deploy as a docker image which can be larger
 
 ## runpod-docker
 
